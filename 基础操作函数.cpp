@@ -28,7 +28,7 @@ void InitBiTree(BiTree &T) {
 
 void FirCreateBiTree(BiTree &T) {					//递归的先序方式创建一个二叉树
 	int ch;
-	//std::cout << "\n请输入二叉树元素：（输入0代表该位置没有元素）\n";
+	//:cout << "\n请输入二叉树元素：（输入0代表该位置没有元素）\n";
 	cin >> ch;
 	if (ch == 0) {
 		T = NULL;
@@ -204,8 +204,9 @@ void BasicPerface() {
 	cout << "                       BiTree Basic Opreation                          \n\n";
 	cout << "1、中序输出二叉树元素   2、先序输出二叉树元素     3、后序输出二叉树元素\n\n";
 	cout << "4、初始化这个链表       5、先序遍历建立二叉链表   6、自上而下的层次遍历\n\n";
-	cout << "7、返回二叉树的深度     8、返回二叉树的宽度       9、返回节点所在层次 \n\n输入选择（输入0直接退出！）：\n";
-	cout << "*********************************************************************\n\n";
+	cout << "7、返回二叉树的深度     8、返回二叉树的宽度       9、返回节点所在层次 \n\n";
+	cout << "10、返回上一级          输入选择（输入0直接退出！）：\n";
+	cout << "*********************************************************************\n";
 }
 void BasicOperation(BiTree& T) {
 	int chose = 0;
@@ -245,14 +246,18 @@ void BasicOperation(BiTree& T) {
 		case 8:
 			cout << "\n你的选择是：8、返回二叉树的宽度\n";
 			cout << BTWith(T);
-			break; 
+			break;
 		case 9:
 			cout << "\n你的选择是：9、返回节点所在层次\n";
 			cout << FindP(T);
-			break; 
+			break;
+		case 10:
+			break;
 		case 0:
 			exit(0);
 		default:
+			break;
+		}if (chose == 10) {
 			break;
 		}
 	}

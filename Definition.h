@@ -10,10 +10,17 @@
 //SqBiTree bt;                           //顺序存储方式定义二叉树
 
 
-typedef struct BiTnode {
+typedef struct BiTnode {                 //二叉树的二叉节点定义
 	int data;
 	struct BiTnode* lchild, * rchild;
 } BiTnode, * BiTree;
+
+typedef struct HTnode {                  //HuffmanTree的结构体定义
+	int weight;
+	int parent;
+	int lchild;
+	int rchild;
+}HTnode, * HTtree;
 
 
 //基础操作部分

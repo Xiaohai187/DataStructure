@@ -12,13 +12,13 @@ using namespace std;
 int main() {
 	int a;
 	BiTree T;
-	cout << "先序方式创立二叉树，请输入二叉树元素（0代表此位置无元素）：";
-	FirCreateBiTree(T);
+	/*cout << "先序方式创立二叉树，请输入二叉树元素（0代表此位置无元素）：";
+	FirCreateBiTree(T);*/
 	while (1) {
 		cout << "\n*********************************************************************\n";
 		cout << "                       BiTree  Opreation                               \n\n";
 		cout << "          选择对二叉树相关的基础或者进阶操作，输入0则退出！\n";
-		cout << "               1、基础操作            2、进阶操作\n";
+		cout << "                 1、基础操作            2、进阶操作\n";
 		cout << "\n*********************************************************************\n";
 		cin >> a;
 		switch (a){
@@ -27,6 +27,8 @@ int main() {
 			break;
 		case 2:
 			HigherOperation(T);
+			break;
+		case 3:
 			break;
 		case 0:
 			exit(0);
