@@ -15,13 +15,16 @@ typedef struct BiTnode {                 //二叉树的二叉节点定义
 	struct BiTnode* lchild, * rchild;
 } BiTnode, * BiTree;
 
+typedef int Weight;
+typedef int Parent;
 typedef struct HTnode {                  //HuffmanTree的结构体定义
-	int weight;
-	int parent;
+	Weight weight;
+	Parent parent;
 	int lchild;
 	int rchild;
 }HTnode, * HTtree;
 
+typedef char** Huffmancode;
 
 //基础操作部分
 void BasicPerface();                    //基础操作选择界面
@@ -37,5 +40,9 @@ int DsonNodes(BiTree T);				//返回二叉树中度为2的节点数目
 int FindP(BiTree T);                    //返回节点p在二叉树中的层次
 
 //进阶操作部分
-void HigherPerface();                    //进阶操作选择界面
-void HigherOperation(BiTree& T);         //进阶操作选择
+void HigherPerface();                                //进阶操作选择界面
+void HigherOperation(BiTree& T);                     //进阶操作选择
+void Huffman(HTtree& HT, int n);                     //构造一个哈夫曼树，使用HT[100],哈夫曼的叶节点个数不能超过50
+void OutHuffmanLeaves(HTtree HT, int n);             //输出哈夫曼树的所有叶节点权重
+void Select(HTtree& HT, int i, int s1, int s2);      //在森林中选择两个最小并且双亲节点为0的节点，并返回
+void HuffManCode(HTtree HT, Huffmancode& HC, int n);  //输出所有节点的哈夫曼编码

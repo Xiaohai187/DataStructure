@@ -1,14 +1,14 @@
 #include <iostream>
 #include<queue>
 #include"Definition.h"
+#include "string.h"
 using namespace std;
 //authored by @Xiaohai187
 
-
 //Huffman²Ù×÷²¿·Ö£¬HuffmanÊ÷µÄÉú³ÉÊ¹ÓÃÊı×éµÄĞÎÊ½ÊµÏÖ
 //Selectº¯ÊıÎªÔÚHT[0]-HT[i]µÄ·¶Î§ÄÚÑ¡ÔñÁ½¸öÈ¨ÖØ×îĞ¡²¢ÇÒÃ»ÓĞË«Ç×µÄÁ½¸ö½Úµã
-void Select(HTtree &HT,int i,int s1,int s2) {                                //ÔÚÉ­ÁÖÖĞÑ¡ÔñÁ½¸ö×îĞ¡²¢ÇÒË«Ç×½ÚµãÎª0µÄ½Úµã£¬²¢·µ»Ø
-	s1 = HT[0].weight; s1 = HT[1].weight;                                  //³õÊ¼»¯×îĞ¡Öµs1Îª½Úµã1µÄÈ¨ÖØ£¬´ÎĞ¡ÖµÎª½Úµã2µÄÈ¨ÖØ
+void Select(HTtree &HT,int i,int s1,int s2) {                               //ÔÚÉ­ÁÖÖĞÑ¡ÔñÁ½¸ö×îĞ¡²¢ÇÒË«Ç×½ÚµãÎª0µÄ½Úµã£¬²¢·µ»Ø
+	s1 = HT[0].weight; s1 = HT[1].weight;                                   //³õÊ¼»¯×îĞ¡Öµs1Îª½Úµã1µÄÈ¨ÖØ£¬´ÎĞ¡ÖµÎª½Úµã2µÄÈ¨ÖØ
 	for (int k = 0; k < i; k++) {                                           //ÔÚÑ¡ÔñµÄ·¶Î§ÄÚÑ­»·
 		if (HT[k].weight <s1&& HT[k].parent == 0) {                         //Èç¹û±È×îĞ¡Öµs1Ğ¡£¬ÔòÓÉs2±£´æs1
 			s2 = s1;
@@ -20,19 +20,20 @@ void Select(HTtree &HT,int i,int s1,int s2) {                                //Ô
 	//return s1, s2;
 }
 
-void Huffman( ) {
-	int n, s1=0, s2=0;
-	cout << "ÇëÊäÈëÈ¨Öµ½ÚµãµÄ¸öÊı£º"; cin >> n;
-	int m = 2 * n - 1;
-	HTnode *HT = new HTnode[m+1];
-	for (int i = 1; i <= m; i++) {
-		HT[i].lchild = 0; HT[i].rchild = 0; HT[i].parent = 0;
+void Huffman(HTtree &HT,int n) { //¹¹ÔìÒ»¸ö¹ş·òÂüÊ÷£¬Ê¹ÓÃHT[100],¹ş·òÂüµÄÒ¶½Úµã¸öÊı²»ÄÜ³¬¹ı50
+	int  s1=0, s2=0;                                                          //s1£¬s2ÎªSelectº¯Êı·µ»ØµÄ½ÚµãÎ»ÖÃ
+	//cout << "ÇëÊäÈëÈ¨Öµ½ÚµãµÄ¸öÊı£º"; cin >> n;
+	//int m = 2 * n;
+	// HTnode *HT = new HTnode[m];
+	//HTtree HT = (HTnode*)malloc(sizeof(HTnode));
+	for (int i = 1; i <= 2*n; i++) {                                          //Êı×éµÚÒ»¸öÎ»ÖÃ²»ÓÃ
+		HT[i].lchild = 0; HT[i].rchild = 0; HT[i].parent = 0;                 //³õÊ¼»¯ËùÓĞ½ÚµãµÄ¸¸Ä¸
 	}
-	for (int i = 1; i <= n; i++) {
-		cout << "ÇëÊäÈëµÚ" << i<< "¸ö½ÚµãµÄÈ¨ÖØ£º"<<endl;
-		cin >> HT[i].weight;
+	for (int j = 1; j <= n; j++) {
+		cout << "ÇëÊäÈëµÚ" << j<< "¸ö½ÚµãµÄÈ¨ÖØ£º";                           //Ç°n¸öÎ»ÖÃ´æ´¢n¸ö½Úµã£¬ºón¸öÎ»ÖÃ·ÅÖĞ¼äÉú³ÉµÄ½Úµã£¬n-1¸ö
+		cin >> HT[j].weight;
 	}
-	for (int i = n + 1; i <= m; i++) {
+	for (int i = n + 1; i <= 2*n; i++) {                                      //¿ªÊ¼¹¹½¨¹ş·òÂüÊ÷
 		Select(HT, i - 1, s1, s2);
 		HT[s1].parent = i; HT[s2].parent = i;
 		HT[i].lchild = s1; HT[i].rchild = s2;
@@ -42,29 +43,72 @@ void Huffman( ) {
 }
 
 
+void HuffManCode(HTtree HT,Huffmancode &HC, int n) {  //Êä³öËùÓĞ½ÚµãµÄ¹ş·òÂü±àÂë
+	/**HC = new char[n + 1.0];*/                                                    //´æ´¢n¸ö×Ö·û±àÂëµÄ±àÂë±í¿Õ¼ä
+	char* cd = new char[n]; cd[n - 1] = '\0';                                 //·ÖÅäÁÙÊ±´æ´¢Ã¿¸ö×Ö·û±àÂëµÄ¶¯Ì¬Êı×é¿Õ¼ä
+	for (int i = 1; i <=n; ++i) {                                             //ÒÀ´ÎÇóÃ¿Ò»¸ö×Ö·û±àÂë
+		int start = n - 1;                                                    //startÖ¸Ïò×îºó£¬±àÂë¿ªÊ¼Î»ÖÃ
+		int c = i; int f = HT[c].parent;                                      //cÖ¸Ïò±àÂë×Ö·ûµ¥Ôª£¬fÎªÆäË«Ç×
+		while (f != 0) {                                                      //Ò»Ö±ÏòÉÏ»ØËİ
+			--start;                                                          //Ç°ÒÆ
+			if (HT[f].lchild == c) {
+				cd[start] = '0';
+			}
+			else {
+				cd[start] = '1';
+			}
+			c = f; f = HT[c].parent;                                           //ÏòÉÏ»ØËİ
+		}
+		int l = n - start;
+		HC[i] = new char[l];                                          //HT[i]µÄ±àÂë·ÅÔÚHC[i]ÖĞ
+		strcpy (HC[i],&cd[start]);                                            //cd´Óstart¿ªÊ¼£¬¸´ÖÆ½øHC[i]ÖĞ
+		cout << "µÚ" << i << "×Ö·û¹ş·òÂü±àÂëÎª£º" << HC[i];
+	}
+	delete cd;
+
+}
+
+void OutHuffmanLeaves(HTtree HT,int n) {//Êä³ö¹ş·òÂüÊ÷µÄËùÓĞÒ¶½ÚµãÈ¨ÖØ
+	cout << "ÆäÒ¶½ÚµãÈ¨ÖØÒÀ´ÎÎª£º";
+	for (int i = 1; i <=n; i++) {
+		cout << HT[i].weight << " ";
+	}
+}
+
 void HigherPerface() {
-	cout << "\n*********************************************************************\n";
-	cout << "                       BiTree HigherOpreation                          \n\n";
-	cout << "1¡¢½¨ÔìÒ»¸ö¹ş·òÂüÊ÷    2¡¢Ôİ¶¨   3¡¢Ôİ¶¨  4¡¢·µ»ØÉÏÒ»¼¶\n ÊäÈëÑ¡Ôñ£¬ÊäÈë0Ö±½ÓÍË³ö£¡\n";
-	cout << "*********************************************************************\n";
+	cout << "\n*******************************************************************************\n";
+	cout << "                            BiTree HigherOpreation                                \n\n";
+	cout << "1¡¢½¨ÔìÒ»¸ö¹ş·òÂüÊ÷  2¡¢Êä³ö¹ş·òÂüµÄËùÓĞÒ¶½ÚµãÈ¨ÖØ  3¡¢Êä³öËùÓĞ½ÚµãµÄ¹ş·òÂü±àÂë\n";
+	cout << "10¡¢·µ»ØÉÏÒ»¼¶\n ÊäÈëÑ¡Ôñ£¬ÊäÈë0Ö±½ÓÍË³ö£¡\n";
+	cout << "**********************************************************************************\n";
 }
 
 void HigherOperation(BiTree& T) {
-	//HTtree HT;
+	HTtree HT = new HTnode[100]; int n; Huffmancode* HC = new Huffmancode[100];
 	int chose = 0;
 	while (1) {
 		HigherPerface();
 		cin >> chose;
 		switch (chose) {
 		case 1:
-			cout << "\nÄãµÄÑ¡ÔñÊÇ£º1¡¢½¨ÔìÒ»¸ö¹ş·òÂüÊ÷\n";
-			Huffman();
+			cout << "ÄãµÄÑ¡ÔñÊÇ£º1¡¢½¨ÔìÒ»¸ö¹ş·òÂüÊ÷\n";
+			cout << "ÇëÊäÈëÈ¨Öµ½ÚµãµÄ¸öÊı£º"; cin >> n;
+			if (n > 50 || n < 0) {
+				cout << "Êı¾İ´íÎó£¡";
+				break;
+			}
+			else {
+				int m = 2 * n;
+				Huffman(HT, n);
+			}
 			break;
 		case 2:
-			cout << "\nÄãµÄÑ¡ÔñÊÇ£º2¡¢\n";
+			cout << "ÄãµÄÑ¡ÔñÊÇ£º2¡¢Êä³ö¹ş·òÂüµÄËùÓĞÒ¶½ÚµãÈ¨ÖØ\n";
+			OutHuffmanLeaves(HT, n);
 			break;
 		case 3:
-			cout << "\nÄãµÄÑ¡ÔñÊÇ£º3¡¢\n";
+			cout << "ÄãµÄÑ¡ÔñÊÇ£º3¡¢Êä³öËùÓĞ½ÚµãµÄ¹ş·òÂü±àÂë£º\n";
+			HuffManCode(HT, *HC, n);
 			break;
 		case 4:
 			break;
@@ -72,7 +116,7 @@ void HigherOperation(BiTree& T) {
 			exit(0);
 		default:
 			break;
-		}if (chose == 4) {
+		}if (chose == 10) {
 			break;
 		}
 	}

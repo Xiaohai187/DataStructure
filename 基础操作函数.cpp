@@ -215,40 +215,40 @@ void BasicOperation(BiTree& T) {
 		cin >> chose;
 		switch (chose) {
 		case 1:
-			cout << "\n你的选择是：1、中序输出二叉树元素\n";
+			cout << "你的选择是：1、中序输出二叉树元素\n";
 			MidVisit(T);
 			break;
 		case 2:
-			cout << "\n你的选择是：2、先序输出二叉树元素\n";
+			cout << "你的选择是：2、先序输出二叉树元素\n";
 			FirVisit(T);
 			break;
 		case 3:
-			cout << "\n你的选择是：3、后序输出二叉树元素\n";
+			cout << "你的选择是：3、后序输出二叉树元素\n";
 			LasVisit(T);
 			break;
 		case 4:
-			cout << "\n你的选择是：4、初始化这个链表\n";
+			cout << "你的选择是：4、初始化这个链表\n";
 			InitBiTree(T);
 			break;
 		case 5:
-			cout << "\n你的选择是：5、先序遍历建立二叉链表\n";
+			cout << "你的选择是：5、先序遍历建立二叉链表\n";
 			cout << "先序方式创立二叉树，请输入二叉树元素（0代表此位置无元素）：";
 			FirCreateBiTree(T);
 			break;
 		case 6:
-			cout << "\n你的选择是：6、自上而下的层次遍历\n";
+			cout << "你的选择是：6、自上而下的层次遍历\n";
 			LevelVisit(T);
 			break;
 		case 7:
-			cout << "\n你的选择是：7、返回二叉树的深度\n";
+			cout << "你的选择是：7、返回二叉树的深度\n";
 			cout << Depth(T);
 			break;
 		case 8:
-			cout << "\n你的选择是：8、返回二叉树的宽度\n";
+			cout << "你的选择是：8、返回二叉树的宽度\n";
 			cout << BTWith(T);
 			break;
 		case 9:
-			cout << "\n你的选择是：9、返回节点所在层次\n";
+			cout << "你的选择是：9、返回节点所在层次\n";
 			cout << FindP(T);
 			break;
 		case 10:
